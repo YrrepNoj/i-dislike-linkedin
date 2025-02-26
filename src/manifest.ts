@@ -15,8 +15,8 @@ const manifest = {
   },
   content_scripts: [
     {
+      matches: ['https://www.linkedin.com/*'],
       js: ["src/entries/contentScript/primary/main.ts"],
-      matches: ["*://*/*"],
     },
   ],
   host_permissions: ["*://*/*"],
