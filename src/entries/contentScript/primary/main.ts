@@ -1,7 +1,7 @@
 function addDislikeButtons() {
   document.querySelectorAll('.feed-shared-social-action-bar__action-button').forEach(container => {
     // Avoid duplicates - don't add a dislike button if it already exists for this post
-    if (container.parentElement?.querySelector('.dislike-button-container')) return;
+    if (!container.parentElement || container.parentElement.querySelector('.dislike-button-container')) return;
 
     // Create the span wrapper for the button
     const spanWrapper = document.createElement('span');
@@ -63,7 +63,7 @@ function addDislikeButtons() {
     });
 
     // Insert dislike button after the "Like" button
-    const likeContainer = container.parentElement?.querySelector('.reactions-react-button');
+    const likeContainer = container.parentElement.querySelector('.reactions-react-button');
     likeContainer?.after(spanWrapper);
   });
 }
