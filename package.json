@@ -1,9 +1,9 @@
 {
-  "name": "vite-web-extension",
-  "version": "1.0.0",
-  "displayName": "Vite Web Extension",
+  "name": "i-dislike-linkedin",
+  "version": "0.1.0",
+  "displayName": "I Dislike LinkedIn",
   "author": "@samrum/vite-plugin-web-extension",
-  "description": "A @samrum/vite-plugin-web-extension web extension",
+  "description": "Make browsing LinkedIn a little more enjoyable by adding a dislike button that no one will ever know you clicked.",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
