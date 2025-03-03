@@ -28,12 +28,16 @@ jobs:
           cd dist
           zip -r i-dislike-linkedin-${{ github.ref_name }}.zip .
 
+      - name: Compute SHA-256 checksum
+        run: sha256sum dist/i-dislike-linkedin-${{ github.ref_name }}.zip > sha256sum.txt
+
       - name: Create GitHub Release and Upload ZIP
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} \
             dist/i-dislike-linkedin-${{ github.ref_name }}.zip \
+            sha256sum.txt \
             --title "Release ${{ github.ref_name }}" \
             --generate-notes
 
