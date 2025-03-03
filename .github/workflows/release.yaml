@@ -1,0 +1,46 @@
+name: Release ...
+
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Node 
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+
+      - name: Install Deps 
+        run: npm install
+
+      - name: Build Dist
+        run: npm run build
+
+      - name: Create zip of Build
+        run: |
+          cd dist
+          zip -r i-dislike-linkedin-${{ github.ref_name }}.zip .
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            gh release create ${{ github.ref_name }} --generate-noets 
+
+      - name: Create GitHub Release and Upload ZIP
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            dist/i-dislike-linkedin-${{ github.ref_name }}.zip \
+            --title "Release ${{ github.ref_name }}" \
+            --generate-notes
+
